@@ -1,1 +1,1 @@
-﻿Ng-Model e two-wau-binding
+﻿Controllers e scope
