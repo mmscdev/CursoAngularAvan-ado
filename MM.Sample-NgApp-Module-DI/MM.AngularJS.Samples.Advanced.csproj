@@ -67,6 +67,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bower_components\angular-cookie\angular-cookie.js" />
+    <Content Include="bower_components\angular-cookie\angular-cookie.min.js" />
+    <Content Include="bower_components\angular-cookie\index.js" />
     <Content Include="bower_components\angular-route\angular-route.js" />
     <Content Include="bower_components\angular-route\angular-route.min.js" />
     <Content Include="bower_components\angular-route\index.js" />
@@ -1330,6 +1333,9 @@
     <Content Include="M03A05\Sobre.txt" />
     <Content Include="M03A04\index.html" />
     <Content Include="M03A04\Sobre.txt" />
+    <Content Include="M03A12\header.html" />
+    <Content Include="M03A12\index.html" />
+    <Content Include="M03A12\Sobre.txt" />
     <Content Include="M03A11\header.html" />
     <Content Include="M03A11\index.html" />
     <Content Include="M03A11\Sobre.txt" />
@@ -1339,6 +1345,9 @@
     <Content Include="M03A09\Sobre.txt" />
     <Content Include="M03A08\index.html" />
     <Content Include="M03A08\Sobre.txt" />
+    <Content Include="M04A01\header.html" />
+    <Content Include="M04A01\index.html" />
+    <Content Include="M04A01\Sobre.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -2195,6 +2204,9 @@
     <Content Include="bower_components\bootswatch\package-lock.json" />
     <Content Include="bower_components\bootswatch\package.json" />
     <Content Include="bower_components\bootswatch\README.md" />
+    <Content Include="bower_components\angular-cookie\.bower.json" />
+    <Content Include="bower_components\angular-cookie\bower.json" />
+    <Content Include="bower_components\angular-cookie\package.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
