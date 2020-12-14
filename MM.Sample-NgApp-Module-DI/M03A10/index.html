@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href="../bower_components/toastr/toastr.min.css" rel="stylesheet" />
-
+    <style>
+        .todo-true {
+            text-decoration: line-through;
+        }
+    </style>
     <title></title>
 </head>
 <body>
@@ -26,8 +30,12 @@
         </div>
         <ul>
             <li ng-repeat="todo in todos">
-                {{todo.text}}
+                <span class="todo-{{todo.done}}">{{todo.text}}</span>
                 <input type="checkbox" ng-model="todo.done" />
+                <span class="label"
+                      ng-class="{ 'label-success': todo.done, 'label-danger': !todo.done }">
+                    {{ todo.text }}
+                </span>
             </li>
         </ul>
     </div>
