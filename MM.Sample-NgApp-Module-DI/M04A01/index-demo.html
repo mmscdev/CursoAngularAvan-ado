@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="MainController">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="../bower_components/bootswatch/dist/litera/bootstrap.css" rel="stylesheet" />
+    <link href="../bower_components/toastr/toastr.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css" />
+    <title></title>
+</head>
+<body>
+    <div ng-include="'header.html'"> </div>
+
+    <div class="container">
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">First Name</th>
+                        <th class="text-center">Last Name</th>
+                        <th class="text-center">Birthday</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in contacts">
+                        <td>{{ c.first_name }}</td>
+                        <td>{{ c.last_name }}</td>
+                        <td class="text-center">{{ c.birthday | date: 'dd/MM/yyyy' }}</td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <button class="btn btn-info btn-sm" ng-click="editContact(c)">EDIT</button>
+                                <button class="btn btn-danger btn-sm" ng-click="deleteContact(c)">DELETE</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <br />
+            <form>
+                <div class="form-group">
+                    <label for="id">Unique Identifier</label>
+                    <input type="text" class="form-control" id="id" ng-model="contact.id" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" ng-model="contact.first_name">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" ng-model="contact.last_name">
+                </div>
+                <div class="form-group">
+                    <label for="birthday">Birthday</label>
+                    <input type="date" class="form-control" id="birthday" ng-model="contact.birthday">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <select name="company" id="company" ng-model="contact.company" class="form-control">
+                        <option value="{{ company.id }}" ng-repeat="company in companies">{{ company.name }}</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" ng-click="saveContact()">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/toastr/toastr.min.js"></script>
+
+
+    <script>
+        angular.module('app', []);
+        var app = angular.module('app');
+
+        app.controller('MainController', function ($scope, $http) {
+            $scope.contact = {
+                id: '',
+                last_name: '',
+                birthday: new Date(),
+                first_name: '',
+                company: ''
+            };
+            $scope.contacts = [];
+            $scope.companies = [];
+
+            var username = 'bb387941-5321-4418-845c-92ae2f5ab238';
+            var password = 'df065242-fa6d-4834-bf92-e623a1d5608b';
+            var baseUrl = 'https://run.mocky.io/v3/6d332e54-e9cf-485b-8646-9ce826c4dc60';
+            var header = {
+                headers: {
+                    'Authorization': 'Basic ' + btoa(username + ':' + password)
+                }
+            };
+
+            $scope.saveContact = function () {
+                if ($scope.contact.id == '') {
+                    postContact();
+                } else {
+                    putContact();
+                }
+            };
+
+            $scope.editContact = function (c) {
+                $scope.contact = {
+                    id: c.id,
+                    last_name: c.last_name,
+                    birthday: new Date(c.birthday),
+                    first_name: c.first_name,
+                    company: c.company
+                };
+            };
+
+            $scope.deleteContact = function (c) {
+                $scope.contact = {
+                    id: c.id,
+                    last_name: c.last_name,
+                    birthday: new Date(c.birthday),
+                    first_name: c.first_name,
+                    company: c.company
+                };
+                deleteContact();
+            };
+
+            getContacts();
+            getCompanies();
+
+            function getContacts() {
+                $http.get(baseUrl , header)
+                    .success(function (data) {
+                        $scope.contacts = data;
+                        toastr.info('Customers loaded successfully', 'Success!');
+                    });
+            }
+            function getCompanies() {
+                $http.get('https://run.mocky.io/v3/0a7dccd9-49bd-4b8b-853e-fac48222ee62', header)
+                    .success(function (data) {
+                        $scope.companies = data;
+                        toastr.info('Companies loaded successfully', 'Success!');
+                    });
+            }
+            function postContact() {
+                $http.post(baseUrl, $scope.contact, header)
+                    .success(function (data) {
+                        $scope.contacts.push($scope.contact);
+                        //$scope.contacts.push(data);
+                        newContact();
+                        toastr.success('Contact created successfully', 'Success!');
+                    });
+            }
+            function putContact() {
+                $http.put(baseUrl, $scope.contact, header)
+                //$http.put(baseUrl  + $scope.contact.id, $scope.contact, header)
+                    .success(function (data) {
+                        var index = $scope.contacts.indexOf($scope.contact);
+                        $scope.contacts.splice(index, 1);
+                        $scope.contacts.push($scope.contact);
+                        // $scope.contacts.push(data);
+                        newContact();
+                        toastr.success('Contact updated successfully', 'Success!');
+                    });
+            }
+            function deleteContact() {
+                $http.delete(baseUrl, header)
+                //$http.delete(baseUrl  + $scope.contact.id, header)
+                    .success(function () {
+                        var index = $scope.contacts.indexOf($scope.contact);
+                        $scope.contacts.splice(index, 1);
+                        newContact();
+                        toastr.success('Contact deleted successfully', 'Success!');
+                    });
+            }
+
+            function newContact() {
+                $scope.contact = {
+                    id: '',
+                    last_name: '',
+                    birthday: new Date(),
+                    first_name: '',
+                    company: ''
+                };
+            }
+        });
+    </script>
+</body>
+</html>

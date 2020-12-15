@@ -1346,6 +1346,7 @@
     <Content Include="M03A08\index.html" />
     <Content Include="M03A08\Sobre.txt" />
     <Content Include="M04A01\header.html" />
+    <Content Include="M04A01\index-demo.html" />
     <Content Include="M04A01\index.html" />
     <Content Include="M04A01\Sobre.txt" />
     <Content Include="Web.config" />
