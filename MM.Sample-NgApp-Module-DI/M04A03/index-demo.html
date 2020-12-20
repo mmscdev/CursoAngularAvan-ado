@@ -3,13 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Contacts Manager</title>
+    <link href="../bower_components/bootswatch/dist/pulse/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="../bower_components/toastr/toastr.min.css" />
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
-    <!--<link rel="stylesheet" href="../bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />-->
     <link href="../bower_components/ng-img-crop/compile/minified/ng-img-crop.css" rel="stylesheet" />
-    <link href="../bower_components/bootswatch/dist/litera/bootstrap.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css" />
     <!-- bower install ngImgCrop -->
     <!-- bower install angular-input-masks -->
     <style>
@@ -27,21 +24,20 @@
 
         <div class="col-md-8">
             <form name="form" ng-submit="submit()" novalidate>
-                <div class="form-group"
-                     ng-class="{ 'has-error' : form.firstName.$invalid && form.firstName.$dirty }">
+                <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input type="text"
                            id="firstName"
                            name="firstName"
                            class="form-control"
                            ng-model="contact.firstName"
+                           ng-class="{ 'is-invalid' : form.firstName.$invalid && form.firstName.$dirty }"
                            ng-minlength="5"
                            ng-maxlength="20"
                            required />
                 </div>
 
-                <div class="form-group"
-                     ng-class="{ 'has-error' : form.lastName.$invalid && form.lastName.$dirty }">
+                <div class="form-group">
                     <label for="lastName">Last Name</label>
                     <input type="text"
                            id="lastName"
@@ -50,14 +46,14 @@
                            ng-model="contact.lastName"
                            ng-minlength="5"
                            ng-maxlength="20"
+                           ng-class="{ 'is-invalid' : form.lastName.$invalid && form.lastName.$dirty }"
                            required />
                     <div class="alert alert-danger" ng-show="form.lastName.$invalid && form.lastName.$dirty">
                         Last name must have 5~20 chars
                     </div>
                 </div>
 
-                <div class="form-group"
-                     ng-class="{ 'has-error' : form.phone.$invalid && form.phone.$dirty }">
+                <div class="form-group">
                     <label for="phone">Phone</label>
                     <input type="text"
                            class="form-control"
@@ -65,6 +61,7 @@
                            name="phone"
                            ng-minlength="14"
                            ng-model="contact.phone"
+                           ng-class="{ 'is-invalid' : form.phone.$invalid && form.phone.$dirty }"
                            ui-br-phone-number
                            required>
                 </div>
@@ -88,7 +85,7 @@
 
 
                 <button type="submit"
-                        class="btn btn-default"
+                        class="btn btn-info"
                         ng-disabled="form.$invalid">
                     Save
                 </button>
@@ -97,14 +94,11 @@
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../bower_components/angular/angular.min.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/toastr/toastr.min.js"></script>
-
     <script src="../bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
     <script src="../bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
+    <script src="../bower_components/toastr/toastr.min.js"></script>
 
     <script>
         angular.module('app', ['ui.utils.masks', 'ngImgCrop']);
